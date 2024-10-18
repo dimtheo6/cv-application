@@ -1,10 +1,18 @@
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 export default function Experience({
   experienceInfo,
   setExperienceInfo,
+  resume,
   setResume,
 }) {
+  const [isActive, setIsActive] = useState(false);
+  const [editIndex, setEditIndex] = useState(null); // Track the index of the item being edited
+  const [editFormState, setEditFormState] = useState(null); // Separate state for editing
+
   const initialExperienceState = {
     company: "",
     jobTitle: "",
@@ -16,79 +24,167 @@ export default function Experience({
 
   const handleExperienceChange = (e) => {
     const { name, value } = e.target;
-    setExperienceInfo({ ...experienceInfo, [name]: value });
+
+    if (editIndex === null) {
+      // Update live during new entry creation
+      setExperienceInfo({ ...experienceInfo, [name]: value });
+    } else {
+      // Only update local form state during editing
+      setEditFormState({ ...editFormState, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (editIndex !== null) {
+      // Edit existing experience entry
+      const updatedExperience = resume.map((item, index) =>
+        index === editIndex ? editFormState : item
+      );
+      setResume((prevResume) => ({
+        ...prevResume,
+        experience: updatedExperience,
+      }));
+    } else {
+      // Add new experience entry (with live updates)
+      setResume((prevResume) => ({
+        ...prevResume,
+        experience: [...prevResume.experience, experienceInfo],
+      }));
+    }
+
+    // Reset form and states
+    setIsActive(false);
+    setEditIndex(null);
+    setExperienceInfo(initialExperienceState);
+    setEditFormState(null);
+  };
+
+  const handleEdit = (index) => {
+    setIsActive(true);
+    setEditIndex(index);
+    setEditFormState(resume[index]); 
+  };
+
+  const handleDelete = (index) => {
+    const updatedExperience = resume.filter((_, i) => i !== index); // Remove the selected entry
     setResume((prevResume) => ({
       ...prevResume,
-      experience: [...prevResume.experience, experienceInfo],
+      experience: updatedExperience,
     }));
-
-    setExperienceInfo(initialExperienceState);
   };
+
 
   return (
     <div className="experience_info">
-      <h1>Work Experience</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="company">Company Name</label>
-        <input
-          type="text"
-          name="company"
-          id="company"
-          value={experienceInfo.company}
-          onChange={handleExperienceChange}
+      <div className="experience_title">
+        <h1>Work Experience</h1>
+        <FontAwesomeIcon
+          className={`expand_icon ${isActive ? "active" : ""}`}
+          icon={faChevronDown}
+          onClick={() => setIsActive(!isActive)}
         />
+      </div>
 
-        <label htmlFor="jobTitle">Job Title</label>
-        <input
-          type="text"
-          name="jobTitle"
-          id="jobTitle"
-          value={experienceInfo.jobTitle}
-          onChange={handleExperienceChange}
-        />
+      {isActive && (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="company">Company Name</label>
+          <input
+            type="text"
+            name="company"
+            id="company"
+            value={
+              editIndex === null
+                ? experienceInfo.company
+                : editFormState?.company || ""
+            }
+            onChange={handleExperienceChange}
+          />
 
-        <label htmlFor="location">Location</label>
-        <input
-          type="text"
-          name="location"
-          id="location"
-          value={experienceInfo.location}
-          onChange={handleExperienceChange}
-        />
+          <label htmlFor="jobTitle">Job Title</label>
+          <input
+            type="text"
+            name="jobTitle"
+            id="jobTitle"
+            value={
+              editIndex === null
+                ? experienceInfo.jobTitle
+                : editFormState?.jobTitle || ""
+            }
+            onChange={handleExperienceChange}
+          />
 
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          name="description"
-          id="description"
-          value={experienceInfo.description}
-          onChange={handleExperienceChange}
-        />
+          <label htmlFor="location">Location</label>
+          <input
+            type="text"
+            name="location"
+            id="location"
+            value={
+              editIndex === null
+                ? experienceInfo.location
+                : editFormState?.location || ""
+            }
+            onChange={handleExperienceChange}
+          />
 
-        <label htmlFor="startDate">Start Date</label>
-        <input
-          type="text"
-          name="startDate"
-          id="startDate"
-          value={experienceInfo.startDate}
-          onChange={handleExperienceChange}
-        />
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            name="description"
+            id="description"
+            value={
+              editIndex === null
+                ? experienceInfo.description
+                : editFormState?.description || ""
+            }
+            onChange={handleExperienceChange}
+          />
 
-        <label htmlFor="endDate">End Date</label>
-        <input
-          type="text"
-          name="endDate"
-          id="endDate"
-          value={experienceInfo.endDate}
-          onChange={handleExperienceChange}
-        />
-        <button type="submit">Save</button>
-      </form>
+          <label htmlFor="startDate">Start Date</label>
+          <input
+            type="text"
+            name="startDate"
+            id="startDate"
+            value={
+              editIndex === null
+                ? experienceInfo.startDate
+                : editFormState?.startDate || ""
+            }
+            onChange={handleExperienceChange}
+          />
+
+          <label htmlFor="endDate">End Date</label>
+          <input
+            type="text"
+            name="endDate"
+            id="endDate"
+            value={
+              editIndex === null
+                ? experienceInfo.endDate
+                : editFormState?.endDate || ""
+            }
+            onChange={handleExperienceChange}
+          />
+
+          {editIndex!==null ? <button onClick={()=>{setIsActive(null)}}>cancel</button>:null }
+          <button type="submit">
+            {editIndex !== null ? "Update" : "Save"}
+          </button>
+        </form>
+      )}
+
+      {resume &&
+        resume.map((experience, index) => (
+          <div className="experience_side_container" key={index}>
+            <p>{experience.company}</p>
+            <div className="buttons">
+              <button onClick={() => handleDelete(index)}>Delete</button>{" "}
+              <button onClick={() => handleEdit(index)}>Edit</button>
+              {/* Delete Button */}
+            </div>
+          </div>
+        ))}
     </div>
   );
 }
@@ -101,6 +197,19 @@ Experience.propTypes = {
     endDate: PropTypes.string,
     location: PropTypes.string,
     description: PropTypes.string,
+  }).isRequired,
+  resume: PropTypes.shape({
+    experience: PropTypes.arrayOf(
+      PropTypes.shape({
+        company: PropTypes.string,
+        jobTitle: PropTypes.string,
+        startDate: PropTypes.string,
+        endDate: PropTypes.string,
+        location: PropTypes.string,
+        description: PropTypes.string,
+        
+      })
+    ),
   }).isRequired,
   setExperienceInfo: PropTypes.func.isRequired,
   setResume: PropTypes.func.isRequired,

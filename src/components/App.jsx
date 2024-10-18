@@ -113,6 +113,8 @@ function App() {
     experience: [],
   });
 
+ 
+
   const [generalInfo, setGeneralInfo] = useState({
     name: "",
     email: "",
@@ -140,7 +142,10 @@ function App() {
   return (
     <div className="container">
       <div className="side_container">
-        <General generalInfo={generalInfo} setGeneralInfo={setGeneralInfo} />
+        <General
+          generalInfo={generalInfo}
+          setGeneralInfo={setGeneralInfo}
+        />
         <Education
           educationInfo={educationInfo}
           setEducationInfo={setEducationInfo}
@@ -150,6 +155,7 @@ function App() {
         <Experience
           experienceInfo={experienceInfo}
           setExperienceInfo={setExperienceInfo}
+          resume={resume.experience}
           setResume={setResume}
         />
       </div>

@@ -1,6 +1,15 @@
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
-export default function General({ generalInfo, setGeneralInfo }) {
+export default function General({
+  generalInfo,
+  setGeneralInfo,
+}) {
+
+  const [isActive, setIsActive] = useState(false);
+  
   const handleGeneralChange = (e) => {
     const { name, value } = e.target;
     setGeneralInfo({ ...generalInfo, [name]: value });
@@ -8,45 +17,54 @@ export default function General({ generalInfo, setGeneralInfo }) {
 
   return (
     <div className="general_info">
-      <form action="#">
+      <div className="general_title">
         <h1>Personal Details</h1>
-
-        <label htmlFor="name">Full Name</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name..."
-          value={generalInfo.name}
-          onChange={handleGeneralChange}
+        <FontAwesomeIcon
+          className={`expand_icon ${isActive ? "active" : ""}`}
+          icon={faChevronDown}
+          onClick={() => setIsActive(!isActive)}
         />
+      </div>
 
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          name="email"
-          placeholder="Email..."
-          value={generalInfo.email}
-          onChange={handleGeneralChange}
-        />
+      {isActive && (
+        <form action="#">
+          <label htmlFor="name">Full Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name..."
+            value={generalInfo.name}
+            onChange={handleGeneralChange}
+          />
 
-        <label htmlFor="phone">Phone Number</label>
-        <input
-          type="text"
-          name="phone"
-          placeholder="Phone Number..."
-          value={generalInfo.phone}
-          onChange={handleGeneralChange}
-        />
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email..."
+            value={generalInfo.email}
+            onChange={handleGeneralChange}
+          />
 
-        <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          name="address"
-          placeholder="Address..."
-          value={generalInfo.address}
-          onChange={handleGeneralChange}
-        />
-      </form>
+          <label htmlFor="phone">Phone Number</label>
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number..."
+            value={generalInfo.phone}
+            onChange={handleGeneralChange}
+          />
+
+          <label htmlFor="address">Address</label>
+          <input
+            type="text"
+            name="address"
+            placeholder="Address..."
+            value={generalInfo.address}
+            onChange={handleGeneralChange}
+          />
+        </form>
+      )}
     </div>
   );
 }
@@ -56,7 +74,7 @@ General.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     phone: PropTypes.string,
-    address:PropTypes.string,
+    address: PropTypes.string,
   }).isRequired,
   setGeneralInfo: PropTypes.func.isRequired,
 };
