@@ -1,7 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faTrashCan,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Education({
   educationInfo,
@@ -63,7 +67,7 @@ export default function Education({
   const handleEdit = (index) => {
     setIsActive(true);
     setEditIndex(index);
-    setEditFormState(resume[index]); 
+    setEditFormState(resume[index]);
   };
 
   const handleDelete = (index) => {
@@ -87,80 +91,101 @@ export default function Education({
 
       {isActive && (
         <form onSubmit={handleSubmit}>
-          <label htmlFor="degree">Degree</label>
-          <input
-            type="text"
-            name="degree"
-            id="degree"
-            value={
-              editIndex === null
-                ? educationInfo.degree
-                : editFormState?.degree || ""
-            }
-            onChange={handleEducationChange}
-            placeholder="Enter Degree / Field of study"
-          />
+          <div className="input_group">
+            <label htmlFor="degree">Degree</label>
+            <input
+              type="text"
+              name="degree"
+              id="degree"
+              value={
+                editIndex === null
+                  ? educationInfo.degree
+                  : editFormState?.degree || ""
+              }
+              onChange={handleEducationChange}
+              placeholder="Enter Degree / Field of study"
+            />
+          </div>
 
-          <label htmlFor="school">School</label>
-          <input
-            type="text"
-            name="school"
-            id="school"
-            value={
-              editIndex === null
-                ? educationInfo.school
-                : editFormState?.school || ""
-            }
-            onChange={handleEducationChange}
-            placeholder="Enter school / university"
-          />
+          <div className="input_group">
+            <label htmlFor="school">School</label>
+            <input
+              type="text"
+              name="school"
+              id="school"
+              value={
+                editIndex === null
+                  ? educationInfo.school
+                  : editFormState?.school || ""
+              }
+              onChange={handleEducationChange}
+              placeholder="Enter school / university"
+            />
+          </div>
 
-          <label htmlFor="location">Location</label>
-          <input
-            type="text"
-            name="location"
-            id="location"
-            value={
-              editIndex === null
-                ? educationInfo.location
-                : editFormState?.location || ""
-            }
-            onChange={handleEducationChange}
-            placeholder="Enter Location"
-          />
+          <div className="input_group">
+            <label htmlFor="location">Location</label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              value={
+                editIndex === null
+                  ? educationInfo.location
+                  : editFormState?.location || ""
+              }
+              onChange={handleEducationChange}
+              placeholder="Enter Location"
+            />
+          </div>
 
-          <label htmlFor="startDate">Start Date</label>
-          <input
-            type="text"
-            name="startDate"
-            id="startDate"
-            value={
-              editIndex === null
-                ? educationInfo.startDate
-                : editFormState?.startDate || ""
-            }
-            onChange={handleEducationChange}
-            placeholder="Start Date"
-          />
+          <div className="input_group">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="text"
+              name="startDate"
+              id="startDate"
+              value={
+                editIndex === null
+                  ? educationInfo.startDate
+                  : editFormState?.startDate || ""
+              }
+              onChange={handleEducationChange}
+              placeholder="Start Date"
+            />
+          </div>
 
-          <label htmlFor="endDate">End Date</label>
-          <input
-            type="text"
-            name="endDate"
-            id="endDate"
-            value={
-              editIndex === null
-                ? educationInfo.endDate
-                : editFormState?.endDate || ""
-            }
-            onChange={handleEducationChange}
-            placeholder="End Date"
-          />
+          <div className="input_group">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              type="text"
+              name="endDate"
+              id="endDate"
+              value={
+                editIndex === null
+                  ? educationInfo.endDate
+                  : editFormState?.endDate || ""
+              }
+              onChange={handleEducationChange}
+              placeholder="End Date"
+            />
+          </div>
 
-          {editIndex!==null ? <button onClick={()=>{setIsActive(null)}}>cancel</button>:null }
-          <button type="submit">
-            {editIndex !== null ? "Update" : "Save"}
-          </button>
+          <div className="edit_buttons">
+            {editIndex !== null ? (
+              <button
+                className="cancel_button"
+                onClick={() => {
+                  setIsActive(null);
+                }}
+              >
+                cancel
+              </button>
+            ) : null}
+            <button className="submit_button" type="submit">
+              {editIndex !== null ? "Update" : "Save"}
+            </button>
+          </div>
         </form>
       )}
 
@@ -169,8 +194,16 @@ export default function Education({
           <div className="education_side_container" key={index}>
             <p>{education.school}</p>
             <div className="buttons">
-              <button onClick={() => handleDelete(index)}>Delete</button>
-              <button onClick={() => handleEdit(index)}>Edit</button>
+              <FontAwesomeIcon
+                className="delete_button"
+                onClick={() => handleDelete(index)}
+                icon={faTrashCan}
+              />
+              <FontAwesomeIcon
+                className="edit_button"
+                onClick={() => handleEdit(index)}
+                icon={faPenToSquare}
+              />
             </div>
           </div>
         ))}

@@ -1,5 +1,5 @@
 :root {
-  --gray-background: #eef0f4;
+  --gray-background: #f3f4f6;
   --white-background: #fff;
 }
 
@@ -27,7 +27,73 @@ p {
 .education_info,
 .experience_info {
   border-radius: 20px;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+input {
+  border-radius: 10px;
+  min-width: 300px;
+  min-height: 35px;
+  background-color: var(--gray-background);
+  border: 1px solid gray;
+  padding-left: 5px;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+label {
+  font-size: large;
+}
+
+.delete_button,
+.edit_button,
+.submit_button,
+.cancel_button {
+  cursor: pointer;
+}
+
+.submit_button,
+.cancel_button {
+  width: 80px;
+  height: 35px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cancel_button {
+  background-color: transparent;
+  color: gray;
+  border: 2px solid gray;
+}
+
+.submit_button {
+  background-color: #187ff5;
+  color: #fff;
+  border: none;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.edit_buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
 }
 
 /*#region  side container */
@@ -49,6 +115,7 @@ p {
   justify-content: space-between;
   position: relative; /* Needed for the pseudo-element positioning */
   padding: 15px 5%;
+  width: 80%;
 }
 
 .education_side_container::before,
@@ -64,12 +131,8 @@ p {
 .education_info form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
 }
 
-.education_info input {
-  width: 20rem;
-}
 /*#endregion*/
 
 /*#region  container */
@@ -145,10 +208,6 @@ p {
   flex-direction: column;
 }
 
-.general_info input {
-  width: 20rem;
-}
-
 /*#endregion*/
 
 /*#region experience info */
@@ -156,10 +215,6 @@ p {
 .experience_info form {
   display: flex;
   flex-direction: column;
-}
-
-.experience_info input {
-  width: 20rem;
 }
 
 /*#endregion*/

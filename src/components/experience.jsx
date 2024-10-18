@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faTrashCan,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 export default function Experience({
@@ -64,7 +68,7 @@ export default function Experience({
   const handleEdit = (index) => {
     setIsActive(true);
     setEditIndex(index);
-    setEditFormState(resume[index]); 
+    setEditFormState(resume[index]);
   };
 
   const handleDelete = (index) => {
@@ -74,7 +78,6 @@ export default function Experience({
       experience: updatedExperience,
     }));
   };
-
 
   return (
     <div className="experience_info">
@@ -89,88 +92,110 @@ export default function Experience({
 
       {isActive && (
         <form onSubmit={handleSubmit}>
-          <label htmlFor="company">Company Name</label>
-          <input
-            type="text"
-            name="company"
-            id="company"
-            value={
-              editIndex === null
-                ? experienceInfo.company
-                : editFormState?.company || ""
-            }
-            onChange={handleExperienceChange}
-          />
+          <div className="input_group">
+            <label htmlFor="company">Company Name</label>
+            <input
+              type="text"
+              name="company"
+              id="company"
+              value={
+                editIndex === null
+                  ? experienceInfo.company
+                  : editFormState?.company || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
 
-          <label htmlFor="jobTitle">Job Title</label>
-          <input
-            type="text"
-            name="jobTitle"
-            id="jobTitle"
-            value={
-              editIndex === null
-                ? experienceInfo.jobTitle
-                : editFormState?.jobTitle || ""
-            }
-            onChange={handleExperienceChange}
-          />
+          <div className="input_group">
+            <label htmlFor="jobTitle">Job Title</label>
+            <input
+              type="text"
+              name="jobTitle"
+              id="jobTitle"
+              value={
+                editIndex === null
+                  ? experienceInfo.jobTitle
+                  : editFormState?.jobTitle || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
 
-          <label htmlFor="location">Location</label>
-          <input
-            type="text"
-            name="location"
-            id="location"
-            value={
-              editIndex === null
-                ? experienceInfo.location
-                : editFormState?.location || ""
-            }
-            onChange={handleExperienceChange}
-          />
+          <div className="input_group">
+            <label htmlFor="location">Location</label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              value={
+                editIndex === null
+                  ? experienceInfo.location
+                  : editFormState?.location || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
 
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            name="description"
-            id="description"
-            value={
-              editIndex === null
-                ? experienceInfo.description
-                : editFormState?.description || ""
-            }
-            onChange={handleExperienceChange}
-          />
+          <div className="input_group">
+            <label htmlFor="description">Description</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              value={
+                editIndex === null
+                  ? experienceInfo.description
+                  : editFormState?.description || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
 
-          <label htmlFor="startDate">Start Date</label>
-          <input
-            type="text"
-            name="startDate"
-            id="startDate"
-            value={
-              editIndex === null
-                ? experienceInfo.startDate
-                : editFormState?.startDate || ""
-            }
-            onChange={handleExperienceChange}
-          />
+          <div className="input_group">
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="text"
+              name="startDate"
+              id="startDate"
+              value={
+                editIndex === null
+                  ? experienceInfo.startDate
+                  : editFormState?.startDate || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
 
-          <label htmlFor="endDate">End Date</label>
-          <input
-            type="text"
-            name="endDate"
-            id="endDate"
-            value={
-              editIndex === null
-                ? experienceInfo.endDate
-                : editFormState?.endDate || ""
-            }
-            onChange={handleExperienceChange}
-          />
-
-          {editIndex!==null ? <button onClick={()=>{setIsActive(null)}}>cancel</button>:null }
-          <button type="submit">
-            {editIndex !== null ? "Update" : "Save"}
-          </button>
+          <div className="input_group">
+            <label htmlFor="endDate">End Date</label>
+            <input
+              type="text"
+              name="endDate"
+              id="endDate"
+              value={
+                editIndex === null
+                  ? experienceInfo.endDate
+                  : editFormState?.endDate || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
+          <div className="edit_buttons">
+            {editIndex !== null ? (
+              <button
+                className="cancel_button"
+                onClick={() => {
+                  setIsActive(null);
+                }}
+              >
+                cancel
+              </button>
+            ) : null}
+            <button className="submit_button" type="submit">
+              {editIndex !== null ? "Update" : "Save"}
+            </button>
+          </div>
         </form>
       )}
 
@@ -179,9 +204,16 @@ export default function Experience({
           <div className="experience_side_container" key={index}>
             <p>{experience.company}</p>
             <div className="buttons">
-              <button onClick={() => handleDelete(index)}>Delete</button>{" "}
-              <button onClick={() => handleEdit(index)}>Edit</button>
-              {/* Delete Button */}
+              <FontAwesomeIcon
+                className="delete_button"
+                onClick={() => handleDelete(index)}
+                icon={faTrashCan}
+              />
+              <FontAwesomeIcon
+                className="edit_button"
+                onClick={() => handleEdit(index)}
+                icon={faPenToSquare}
+              />
             </div>
           </div>
         ))}
@@ -207,7 +239,6 @@ Experience.propTypes = {
         endDate: PropTypes.string,
         location: PropTypes.string,
         description: PropTypes.string,
-        
       })
     ),
   }).isRequired,

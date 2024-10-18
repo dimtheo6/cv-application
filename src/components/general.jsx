@@ -1,15 +1,6 @@
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
-export default function General({
-  generalInfo,
-  setGeneralInfo,
-}) {
-
-  const [isActive, setIsActive] = useState(false);
-  
+export default function General({ generalInfo, setGeneralInfo }) {
   const handleGeneralChange = (e) => {
     const { name, value } = e.target;
     setGeneralInfo({ ...generalInfo, [name]: value });
@@ -19,15 +10,10 @@ export default function General({
     <div className="general_info">
       <div className="general_title">
         <h1>Personal Details</h1>
-        <FontAwesomeIcon
-          className={`expand_icon ${isActive ? "active" : ""}`}
-          icon={faChevronDown}
-          onClick={() => setIsActive(!isActive)}
-        />
       </div>
 
-      {isActive && (
-        <form action="#">
+      <form action="#">
+        <div className="input_group">
           <label htmlFor="name">Full Name</label>
           <input
             type="text"
@@ -36,7 +22,9 @@ export default function General({
             value={generalInfo.name}
             onChange={handleGeneralChange}
           />
+        </div>
 
+        <div className="input_group">
           <label htmlFor="email">Email</label>
           <input
             type="text"
@@ -45,7 +33,9 @@ export default function General({
             value={generalInfo.email}
             onChange={handleGeneralChange}
           />
+        </div>
 
+        <div className="input_group">
           <label htmlFor="phone">Phone Number</label>
           <input
             type="text"
@@ -54,7 +44,9 @@ export default function General({
             value={generalInfo.phone}
             onChange={handleGeneralChange}
           />
+        </div>
 
+        <div className="input_group">
           <label htmlFor="address">Address</label>
           <input
             type="text"
@@ -63,8 +55,8 @@ export default function General({
             value={generalInfo.address}
             onChange={handleGeneralChange}
           />
-        </form>
-      )}
+        </div>
+      </form>
     </div>
   );
 }
