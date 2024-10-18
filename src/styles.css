@@ -1,0 +1,105 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+p{
+    margin: 0;
+}
+
+/*#region  container */
+.container{
+    display: flex;
+    justify-content: center;
+    gap: 200px;
+}
+/*#endregion*/
+
+
+/*#region resume */
+.resume_container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
+}
+
+.personal_info{
+    background-color: aqua;
+    width: 100%;
+    height: 20%;
+    padding: 3rem;
+}
+
+.contact_info{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.education_container_group,.experience_container_group{
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 50px;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+
+}
+
+
+.education_info_group,.experience_info_group{
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    gap: 10px;
+}
+
+.info_school,.info_company{
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+
+/*#endregion*/
+
+/*#region general info */
+
+.general_info form{
+    display: flex;
+    flex-direction: column;
+}
+
+.general_info input{
+    width: 20rem;
+}
+
+/*#endregion*/
+
+/*#region education info */
+
+.education_info form{
+    display: flex;
+    flex-direction: column;
+}
+
+.education_info input{
+    width: 20rem;
+}
+
+
+/*#endregion*/
+
+/*#region experience info */
+
+.experience_info form{
+    display: flex;
+    flex-direction: column;
+}
+
+.experience_info input{
+    width: 20rem;
+}
+
+/*#endregion*/
