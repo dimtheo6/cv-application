@@ -201,7 +201,10 @@ export default function Education({
             <div className="buttons">
               <FontAwesomeIcon
                 className="delete_button"
-                onClick={() => handleDelete(index)}
+                onClick={() => {
+                  setIsActive(false);
+                  handleDelete(index);
+                }}
                 icon={faTrashCan}
               />
               <FontAwesomeIcon

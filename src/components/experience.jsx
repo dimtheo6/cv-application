@@ -218,7 +218,10 @@ export default function Experience({
             <div className="buttons">
               <FontAwesomeIcon
                 className="delete_button"
-                onClick={() => handleDelete(index)}
+                onClick={() => {
+                  setIsActive(false);
+                  handleDelete(index);
+                }}
                 icon={faTrashCan}
               />
               <FontAwesomeIcon
