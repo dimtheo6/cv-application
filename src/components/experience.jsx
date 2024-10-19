@@ -98,6 +98,8 @@ export default function Experience({
               type="text"
               name="company"
               id="company"
+              maxLength={40}
+              placeholder="Enter Company Name"
               value={
                 editIndex === null
                   ? experienceInfo.company
@@ -113,6 +115,8 @@ export default function Experience({
               type="text"
               name="jobTitle"
               id="jobTitle"
+              maxLength={40}
+              placeholder="Enter Job Title"
               value={
                 editIndex === null
                   ? experienceInfo.jobTitle
@@ -128,25 +132,12 @@ export default function Experience({
               type="text"
               name="location"
               id="location"
+              maxLength={40}
+              placeholder="Enter Location"
               value={
                 editIndex === null
                   ? experienceInfo.location
                   : editFormState?.location || ""
-              }
-              onChange={handleExperienceChange}
-            />
-          </div>
-
-          <div className="input_group">
-            <label htmlFor="description">Description</label>
-            <input
-              type="text"
-              name="description"
-              id="description"
-              value={
-                editIndex === null
-                  ? experienceInfo.description
-                  : editFormState?.description || ""
               }
               onChange={handleExperienceChange}
             />
@@ -158,6 +149,8 @@ export default function Experience({
               type="text"
               name="startDate"
               id="startDate"
+              maxLength={20}
+              placeholder="Enter Start Date"
               value={
                 editIndex === null
                   ? experienceInfo.startDate
@@ -173,6 +166,8 @@ export default function Experience({
               type="text"
               name="endDate"
               id="endDate"
+              maxLength={20}
+              placeholder="Enter End Date"
               value={
                 editIndex === null
                   ? experienceInfo.endDate
@@ -181,6 +176,23 @@ export default function Experience({
               onChange={handleExperienceChange}
             />
           </div>
+
+          <div className="input_group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              maxLength={300}
+              placeholder="Enter Description"
+              value={
+                editIndex === null
+                  ? experienceInfo.description
+                  : editFormState?.description || ""
+              }
+              onChange={handleExperienceChange}
+            />
+          </div>
+
           <div className="edit_buttons">
             {editIndex !== null ? (
               <button
@@ -230,18 +242,16 @@ Experience.propTypes = {
     location: PropTypes.string,
     description: PropTypes.string,
   }).isRequired,
-  resume: PropTypes.shape({
-    experience: PropTypes.arrayOf(
-      PropTypes.shape({
-        company: PropTypes.string,
-        jobTitle: PropTypes.string,
-        startDate: PropTypes.string,
-        endDate: PropTypes.string,
-        location: PropTypes.string,
-        description: PropTypes.string,
-      })
-    ),
-  }).isRequired,
-  setExperienceInfo: PropTypes.func.isRequired,
+  resume: PropTypes.arrayOf(
+    PropTypes.shape({
+      company: PropTypes.string,
+      jobTitle: PropTypes.string,
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+      location: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ).isRequired,
   setResume: PropTypes.func.isRequired,
+  setExperienceInfo: PropTypes.func.isRequired,
 };

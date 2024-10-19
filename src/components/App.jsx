@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import General from "./general";
 import Education from "./education";
 import Experience from "./experience";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faLocationDot,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
+import { useReactToPrint } from "react-to-print";
 
 function EducationList({ educationArray, educationInfo }) {
   return (
     <div className="education_container">
-      {educationArray[0] && <h1>Education</h1>}
+      {educationArray[0] && <h2 className="resume_title">Education</h2>}
 
       {educationArray.map((education, index) => (
         <div className="education_container_group" key={index}>
@@ -51,7 +58,7 @@ function EducationList({ educationArray, educationInfo }) {
 function ExperienceList({ experienceArray, experienceInfo }) {
   return (
     <div className="experience_container">
-      {experienceArray[0] && <h1>Experiences</h1>}
+      {experienceArray[0] && <h2 className="resume_title">Experiences</h2>}
 
       {experienceArray.map((experience, index) => (
         <div className="experience_container_group" key={index}>
@@ -68,7 +75,7 @@ function ExperienceList({ experienceArray, experienceInfo }) {
           <div className="experience_info_group">
             <p className="info_company">{experience.company}</p>
             <p>{experience.jobTitle}</p>
-            <p>{experience.description}</p>
+            <p className="description">{experience.description}</p>
           </div>
         </div>
       ))}
@@ -87,7 +94,7 @@ function ExperienceList({ experienceArray, experienceInfo }) {
         <div className="experience_info_group">
           <p className="info_company">{experienceInfo.company}</p>
           <p>{experienceInfo.jobTitle}</p>
-          <p>{experienceInfo.description}</p>
+          <p className="description">{experienceInfo.description}</p>
         </div>
       </div>
     </div>
@@ -99,9 +106,20 @@ function PersonalDetails({ generalInfo }) {
     <div className="personal_info">
       <h1 className="resume_name">{generalInfo.name}</h1>
       <div className="contact_info">
-        <span>{generalInfo.email}</span>
-        <span>{generalInfo.phone}</span>
-        <span>{generalInfo.address}</span>
+        <div className="personal_info_group">
+          {generalInfo.email && <FontAwesomeIcon icon={faEnvelope} />}
+          <span>{generalInfo.email}</span>
+        </div>
+
+        <div className="personal_info_group">
+          {generalInfo.phone && <FontAwesomeIcon icon={faPhone} />}
+          <span>{generalInfo.phone}</span>
+        </div>
+
+        <div className="personal_info_group">
+          {generalInfo.address && <FontAwesomeIcon icon={faLocationDot} />}
+          <span>{generalInfo.address}</span>
+        </div>
       </div>
     </div>
   );
@@ -112,8 +130,6 @@ function App() {
     education: [],
     experience: [],
   });
-
- 
 
   const [generalInfo, setGeneralInfo] = useState({
     name: "",
@@ -139,13 +155,18 @@ function App() {
     description: "",
   });
 
+  const contentRef = useRef(null); 
+  const reactToPrintFn = useReactToPrint({contentRef});
+
+
   return (
     <div className="container">
       <div className="side_container">
-        <General
-          generalInfo={generalInfo}
-          setGeneralInfo={setGeneralInfo}
-        />
+        <div className="print_container">
+        <h4>Print Your Resume</h4>
+        <button onClick={reactToPrintFn} className="print_button">Print Resume</button>
+        </div>
+        <General generalInfo={generalInfo} setGeneralInfo={setGeneralInfo} />
         <Education
           educationInfo={educationInfo}
           setEducationInfo={setEducationInfo}
@@ -160,7 +181,7 @@ function App() {
         />
       </div>
 
-      <div className="resume_container">
+      <div className="resume_container" ref={contentRef}>
         <PersonalDetails generalInfo={generalInfo} />
         <EducationList
           educationArray={resume.education}
@@ -171,6 +192,7 @@ function App() {
           experienceInfo={experienceInfo}
         />
       </div>
+
     </div>
   );
 }

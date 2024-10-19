@@ -13,12 +13,16 @@ body {
 
 p {
   margin: 0;
+
 }
+
+
 
 .general_info,
 .education_info,
 .experience_info,
-.resume_container {
+.resume_container,
+.print_container {
   background-color: var(--white-background);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 3px 10px 0px;
 }
@@ -32,19 +36,43 @@ p {
   align-items: center;
 }
 
+.print_container{
+  min-height: 50px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.print_button{
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  min-height: 30px;
+  padding: 10px;
+  color: white;
+  font-weight: 600;
+  background-color: rgb(248, 71, 71);
+}
+
 form {
   display: flex;
   gap: 15px;
   margin-bottom: 30px;
 }
 
-input {
+input,textarea {
   border-radius: 10px;
   min-width: 300px;
   min-height: 35px;
   background-color: var(--gray-background);
   border: 1px solid gray;
   padding-left: 5px;
+}
+
+textarea{
+  min-height: 60px;
+  resize: none;
 }
 
 .input_group {
@@ -149,14 +177,20 @@ label {
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 21cm;
-  height: 29.7cm;
+  min-width: 21cm;
+  min-height: 27.9cm;
 }
 
 .personal_info {
-  background-color: aqua;
-  height: 20%;
-  padding: 3rem;
+  background-color: #0e374e;;
+  min-height: 50px;
+  padding: 20px 10px 40px;
+  color: white;
+}
+
+.personal_info_group{
+    display: flex;
+    gap: 5px;
 }
 
 .contact_info {
@@ -173,20 +207,37 @@ label {
   gap: 50px;
   margin-bottom: 3rem;
   margin-top: 2rem;
+  margin-left: 50px;
+
 }
 
 .education_info_group,
 .experience_info_group {
   display: flex;
   flex-direction: column;
-  min-width: 100px;
-  gap: 10px;
+  gap: 7px;
+  word-wrap: break-word;
+}
+
+.description{
+    max-width: 500px;
 }
 
 .info_school,
 .info_company {
   font-weight: 700;
   font-size: 1.1rem;
+}
+
+
+.resume_title{
+    background-color: var(--gray-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(14, 55, 78);
+    margin: 20px 50px;
+    min-height: 50px;
 }
 
 /*#endregion*/

@@ -92,27 +92,12 @@ export default function Education({
       {isActive && (
         <form onSubmit={handleSubmit}>
           <div className="input_group">
-            <label htmlFor="degree">Degree</label>
-            <input
-              type="text"
-              name="degree"
-              id="degree"
-              value={
-                editIndex === null
-                  ? educationInfo.degree
-                  : editFormState?.degree || ""
-              }
-              onChange={handleEducationChange}
-              placeholder="Enter Degree / Field of study"
-            />
-          </div>
-
-          <div className="input_group">
             <label htmlFor="school">School</label>
             <input
               type="text"
               name="school"
               id="school"
+              maxLength={40}
               value={
                 editIndex === null
                   ? educationInfo.school
@@ -124,11 +109,29 @@ export default function Education({
           </div>
 
           <div className="input_group">
+            <label htmlFor="degree">Degree</label>
+            <input
+              type="text"
+              name="degree"
+              id="degree"
+              maxLength={40}
+              value={
+                editIndex === null
+                  ? educationInfo.degree
+                  : editFormState?.degree || ""
+              }
+              onChange={handleEducationChange}
+              placeholder="Enter Degree / Field of study"
+            />
+          </div>
+
+          <div className="input_group">
             <label htmlFor="location">Location</label>
             <input
               type="text"
               name="location"
               id="location"
+              maxLength={40}
               value={
                 editIndex === null
                   ? educationInfo.location
@@ -145,13 +148,14 @@ export default function Education({
               type="text"
               name="startDate"
               id="startDate"
+              maxLength={20}
               value={
                 editIndex === null
                   ? educationInfo.startDate
                   : editFormState?.startDate || ""
               }
               onChange={handleEducationChange}
-              placeholder="Start Date"
+              placeholder="Enter Start Date"
             />
           </div>
 
@@ -161,13 +165,14 @@ export default function Education({
               type="text"
               name="endDate"
               id="endDate"
+              maxLength={20}
               value={
                 editIndex === null
                   ? educationInfo.endDate
                   : editFormState?.endDate || ""
               }
               onChange={handleEducationChange}
-              placeholder="End Date"
+              placeholder="Enter End Date"
             />
           </div>
 
