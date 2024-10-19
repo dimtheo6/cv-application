@@ -4,7 +4,8 @@ The CV generator consists of two main sections: the control and the visualizatio
 
 [Live Demo](https://cv-applicationgen.netlify.app/)
 
-![Screenshot_31](https://github.com/user-attachments/assets/f657b315-d31b-4d4e-b512-9d7b9a95ceb4)
+![Screenshot_31](https://github.com/user-attachments/assets/1ef1da43-04f7-4220-9fa8-27ffa866b7c3)
+
 
 ## Features
 Here are some of the project's features:
